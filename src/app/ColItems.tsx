@@ -15,7 +15,9 @@ export default function ColItems({ cols, idx }: Props) {
   const { data: items = [] } = useItemsQuery(col.column)
   return (
     <div className="p-2 w-[16rem] min-h-full relative">
-      <ItemCard item={cols[idx]} />
+      <div className="z-20 sticky top-0">
+        <ItemCard item={cols[idx]} />
+      </div>
 
       <Droppable droppableId={col.column + ''} key={col.column}>
         {(provided, snap) => (

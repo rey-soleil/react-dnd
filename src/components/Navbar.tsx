@@ -1,6 +1,8 @@
 import AppLogo from '~/components/AppLogo'
 import { Icons } from '~/lib/icons'
 
+import { ResetZoomBtn } from './Zooming/ResetZoom'
+
 export default function Navbar() {
   return (
     <nav className="navbar border-b-2 border-base-300">
@@ -11,6 +13,8 @@ export default function Navbar() {
         <Icons.Menu className="text-4xl " />
       </label>
       <AppLogo />
+      <div className="flex-1" />
+      <ResetZoomBtn />
       <div className="flex-1" />
     </nav>
   )

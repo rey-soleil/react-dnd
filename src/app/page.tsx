@@ -11,6 +11,7 @@ import ColItems from './ColItems'
 import { useAddItemMutation } from './hooks/useAddItem'
 import { useDragItemMutation } from './hooks/useDragItem'
 import { useItemsQuery } from './hooks/useItemsQuery'
+import SettingsDialog from './Settings'
 
 export default function BoardPage() {
   const boardRef = useRef<HTMLDivElement>(null)
@@ -38,6 +39,7 @@ export default function BoardPage() {
       >
         <MdAdd size={50} />
       </button>
+      <SettingsDialog />
     </div>
   )
 }

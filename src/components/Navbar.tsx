@@ -1,21 +1,28 @@
+'use client'
+
+import { MdSettings } from 'react-icons/md'
+
 import AppLogo from '~/components/AppLogo'
-import { Icons } from '~/lib/icons'
 
 import { ResetZoomBtn } from './Zooming/ResetZoom'
 
 export default function Navbar() {
   return (
-    <nav className="navbar border-b-2 border-base-300">
-      <label
-        htmlFor="main-drawer"
-        className="sm:hidden flex btn btn-square drawer-button btn-ghost mx-3"
+    <nav className="w-screen h-[3rem] flex space-x-1 fixed z-20 bg-base-100 items-center border-b-[1px]">
+      <div className="flex-1">
+        <AppLogo />
+      </div>
+      <button
+        className="btn btn-sm"
+        onClick={() => {
+          //@ts-ignore
+          window.SettingsDialog.show()
+        }}
       >
-        <Icons.Menu className="text-4xl " />
-      </label>
-      <AppLogo />
-      <div className="flex-1" />
+        <MdSettings />
+      </button>
       <ResetZoomBtn />
-      <div className="flex-1" />
+      <div className="flex-1"></div>
     </nav>
   )
 }

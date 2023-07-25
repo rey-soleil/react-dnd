@@ -21,7 +21,7 @@ export default function ColItems({ cols, idx }: Props) {
   const { data: items = [] } = useItemsQuery(col.column)
   return (
     <div className="p-2 w-[16rem] min-h-full relative">
-      <div className="z-20 sticky top-0">
+      <div className="z-20 sticky top-0 top-sticky">
         <ItemCard item={cols[idx]} />
       </div>
 

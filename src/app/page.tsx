@@ -22,7 +22,7 @@ export default function BoardPage() {
   return (
     <div
       ref={boardRef}
-      className="absolute top-[3.5rem] left-0 right-0 bottom-0 overflow-scroll "
+      className="absolute top-[3.5rem] left-0 right-0 bottom-0 overflow-scroll board"
     >
       <ZoomableContainer>
         <div className="flex space-x-2 py-2">

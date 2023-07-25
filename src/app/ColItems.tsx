@@ -22,7 +22,7 @@ export default function ColItems({ cols, idx }: Props) {
 
   return (
     <div className=" w-[16rem] min-h-full relative">
-      <div className="z-20 sticky top-1">
+      <div className="z-20 sticky top-1 top-sticky">
         <ItemCard item={cols[idx]} />
       </div>
 

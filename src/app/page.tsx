@@ -20,7 +20,7 @@ export default function BoardPage() {
   const { data: cols = [] } = useItemsQuery(-1)
 
   return (
-    <div ref={boardRef} className="flex-1 overflow-scroll ">
+    <div ref={boardRef} className="flex-1 overflow-scroll board">
       <ZoomableContainer>
         <div className="flex space-x-2 p-2">
           <DragDropContext onDragEnd={(r) => onDragEnd(r)}>

@@ -34,6 +34,20 @@ export default function ZoomableContainer({ children }: Props) {
       document.removeEventListener('gestureend', handler)
     }
   }, [])
+
+  let board = document.querySelector('.board')
+  let stickies = document.querySelectorAll(
+    '.top-sticky',
+  ) as NodeListOf<HTMLElement>
+
+  board?.addEventListener('scroll', setTop)
+
+  function setTop() {
+    if (!board) return
+    let offset = board.scrollTop - board.scrollTop / zoom
+    stickies.forEach((sticky) => (sticky.style.top = `${-offset}px`))
+  }
+
   return (
     <div
       style={{

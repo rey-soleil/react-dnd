@@ -9,7 +9,6 @@ type Props = {
 }
 export default function ZoomableContainer({ children }: Props) {
   const [zoom, setZoom] = useAtom(zoomAtom)
-
   usePinch(
     // `difference` stores the delta between the previous and current offset.
     // Setting the zoom using `difference` rather than `offset` means that when

@@ -10,14 +10,8 @@ import ItemCard from './ItemCard'
 
 type Props = { cols: ItemType[]; idx: number }
 
-// REY: AFAIK, this only renders the header row of stickies.
-// In dev tools, there are 5 ColItems components.
-// cols is the same for each.
-// idx is 0, 1, 2, 3, 4.
 export default function ColItems({ cols, idx }: Props) {
   const col = cols[idx]
-  // items stores the draggable stickies.
-  // we use col.column (which I believe is the same as idx) to get items
   const { data: items = [] } = useItemsQuery(col.column)
 
   return (

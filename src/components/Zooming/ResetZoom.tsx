@@ -12,6 +12,7 @@ export function ResetZoomBtn() {
     <button
       title="Reset Zoom"
       className="btn btn-sm"
+      // Setting the zoom here doesn't affect the offset
       onClick={() => setZoom(1)}
     >
       <MdSearchOff />

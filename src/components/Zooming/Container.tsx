@@ -9,8 +9,13 @@ type Props = {
 }
 export default function ZoomableContainer({ children }: Props) {
   const [zoom, setZoom] = useAtom(zoomAtom)
+  console.log({ zoom })
+
+  // Problem: offset can get out of sync when the user clicks reset,
+  // which sets the zoom to 1 but leaves offset unchanged.
   usePinch(
     ({ offset: [d] }) => {
+      console.log({ ofset: d })
       setZoom(d)
     },
     {

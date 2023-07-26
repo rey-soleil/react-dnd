@@ -14,10 +14,11 @@ export function useAddItemMutation() {
   const client = useQueryClient()
 
   return useMutation(async ({ type, ...input }: AddItemType) => {
+    const isHeader = input.row === 0
     const newItem: ItemType = {
       id: nanoid(8),
-      content: input.content ?? 'New Item',
-      color: input.row === 0 ? '#FFF4BA' : '#FFFFFF',
+      content: input.content ?? (isHeader ? 'New Col' : 'New Item'),
+      color: isHeader ? '#FFF4BA' : '#FFFFFF',
       column: input.column,
       row: 0,
     }
@@ -39,11 +40,7 @@ export function useAddItemMutation() {
       els.push(newItem)
       return els
     })
-    if (type === 'cols') {
-      client.invalidateQueries(['items'])
-    } else {
-      client.invalidateQueries(['items', input.column])
-    }
+    client.refetchQueries(['items'])
     return newItem
   })
 }

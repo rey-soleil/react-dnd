@@ -2,14 +2,14 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { ItemType } from '~/lib/types'
 
+export const allItems = Array<ItemType>()
+
 export function useAllItemsQuery() {
   return useQuery(['items'], async () => {
-    console.log('useAllItemsQuery')
-
-    const items = Array<ItemType>()
+    if (allItems.length) return allItems
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 5; j++) {
-        items.push({
+        allItems.push({
           id: `${j}-${i}`,
           content: i === 0 ? `Col ${j}` : `Item ${j}-${i}`,
           column: j,
@@ -18,7 +18,7 @@ export function useAllItemsQuery() {
         })
       }
     }
-    return items
+    return allItems
   })
 }
 

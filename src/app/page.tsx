@@ -32,7 +32,7 @@ export default function BoardPage() {
       </ZoomableContainer>
       <button
         className={clsx('btn btn-lg btn-circle fixed bottom-2 right-2')}
-        onClick={() => addColumn({ type: 'cols', column: cols.length })}
+        onClick={() => addColumn({ type: 'cols', column: cols.length, row: 0 })}
       >
         <MdAdd size={50} />
       </button>

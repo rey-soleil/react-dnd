@@ -1,13 +1,14 @@
 'use client'
 
 import { useRef } from 'react'
-import { toast } from 'sonner'
+import { MdMenu, MdMore, MdMoreVert, MdOutlineMoreHoriz } from 'react-icons/md'
 
 import clsx from '~/lib/clsx'
 import { Icons } from '~/lib/icons'
 import type { ItemType } from '~/lib/types'
 
 import { useAddItemMutation } from './hooks/useAddItem'
+import { useItemSelection } from './hooks/useItemSelect'
 
 type Props = {
   item: ItemType
@@ -16,6 +17,7 @@ type Props = {
 export default function ItemCard({ item }: Props) {
   const divRef = useRef<HTMLDivElement>(null)
   const { mutate: addItem } = useAddItemMutation()
+  const { showSettings } = useItemSelection()
   const isHeader = item.row === 0
   return (
     <div
@@ -48,9 +50,15 @@ export default function ItemCard({ item }: Props) {
             })
           }
         >
-          <Icons.Add />
+          <Icons.Add className="text-xl" />
         </button>
       )}
+      <button
+        className="btn btn-xs btn-circle btn-ghost absolute top-1 right-1"
+        onClick={() => showSettings(item)}
+      >
+        <MdMoreVert className="text-xl" />
+      </button>
     </div>
   )
 }

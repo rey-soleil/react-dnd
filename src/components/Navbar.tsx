@@ -12,15 +12,7 @@ export default function Navbar() {
       <div className="flex-1">
         <AppLogo />
       </div>
-      <button
-        className="btn btn-sm"
-        onClick={() => {
-          //@ts-ignore
-          window.SettingsDialog.show()
-        }}
-      >
-        <MdSettings />
-      </button>
+
       <ResetZoomBtn />
       <div className="flex-1"></div>
     </nav>

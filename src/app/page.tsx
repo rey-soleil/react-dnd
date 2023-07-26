@@ -11,7 +11,7 @@ import ColItems from './ColItems'
 import { useAddItemMutation } from './hooks/useAddItem'
 import { useDragItemMutation } from './hooks/useDragItem'
 import { useItemsQuery } from './hooks/useItemsQuery'
-import SettingsDialog from './Settings'
+import SettingsDialog from './settings/SettingsDialog'
 
 export default function BoardPage() {
   const boardRef = useRef<HTMLDivElement>(null)

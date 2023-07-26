@@ -13,9 +13,10 @@ type Props = { cols: ItemType[]; idx: number }
 export default function ColItems({ cols, idx }: Props) {
   const col = cols[idx]
   const { data: items = [] } = useItemsQuery(col.column)
+
   return (
-    <div className="p-2 w-[16rem] min-h-full relative">
-      <div className="z-20 sticky top-0">
+    <div className=" w-[16rem] min-h-full relative">
+      <div className="z-20 sticky top-1">
         <ItemCard item={cols[idx]} />
       </div>
 
@@ -33,7 +34,7 @@ export default function ColItems({ cols, idx }: Props) {
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided) => (
                   <div
-                    className={clsx('w-60 shadow-md ')}
+                    className={clsx('w-[15rem] shadow-md ')}
                     ref={provided.innerRef}
                     style={{
                       ...provided.draggableProps.style,

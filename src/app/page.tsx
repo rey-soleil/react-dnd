@@ -20,12 +20,9 @@ export default function BoardPage() {
   const { data: cols = [] } = useItemsQuery(-1)
 
   return (
-    <div
-      ref={boardRef}
-      className="absolute top-[3.5rem] left-0 right-0 bottom-0 overflow-scroll "
-    >
+    <div ref={boardRef} className="flex-1 overflow-scroll ">
       <ZoomableContainer>
-        <div className="flex space-x-2 py-2">
+        <div className="flex space-x-2 p-2">
           <DragDropContext onDragEnd={(r) => onDragEnd(r)}>
             {cols.map((col, i) => (
               <ColItems cols={cols} idx={i} key={col.id} />

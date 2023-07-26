@@ -20,7 +20,7 @@ type Props = {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en" className={clsx(font.className)}>
-      <body className={font.className}>
+      <body className="h-screen w-screen flex flex-col">
         <Providers>
           <Navbar />
           {children}

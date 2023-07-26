@@ -22,7 +22,7 @@ export default function ItemCard({ item }: Props) {
   return (
     <div
       className={clsx(
-        'w-[16rem] p-2 flex flex-col relative text-center ',
+        'max-w-[16rem] min-w-[16rem] p-2 flex flex-col relative text-center ',
         isHeader ? 'h-[5rem]' : 'h-[10rem]',
       )}
       style={{

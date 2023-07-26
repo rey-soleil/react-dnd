@@ -9,14 +9,14 @@ type Props = {
 }
 export default function ZoomableContainer({ children }: Props) {
   const [zoom, setZoom] = useAtom(zoomAtom)
-  console.log({ zoom })
 
-  // Problem: offset can get out of sync when the user clicks reset,
-  // which sets the zoom to 1 but leaves offset unchanged.
   usePinch(
-    ({ offset: [d] }) => {
-      console.log({ ofset: d })
-      setZoom(d)
+    // `difference` stores the delta between the previous and current offset.
+    // Setting the zoom using `difference` rather than `offset` means that when
+    // the user clicks ResetZoom, offset will be out of sync with zoom but
+    // difference will still be correct.
+    ({ delta: [difference] }) => {
+      setZoom((zoom) => zoom + difference)
     },
     {
       target: typeof document !== 'undefined' ? document : undefined,

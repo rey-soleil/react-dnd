@@ -9,7 +9,6 @@ type Props = {
 }
 export default function ZoomableContainer({ children }: Props) {
   const [zoom, setZoom] = useAtom(zoomAtom)
-
   usePinch(
     ({ offset: [d] }) => {
       setZoom(d)
@@ -51,14 +50,13 @@ export default function ZoomableContainer({ children }: Props) {
       document.removeEventListener('gestureend', handler)
       board?.removeEventListener('scroll', setTop)
     }
-  }, [zoom]) // adding zoom as dependency since setTop uses it
+  }, [zoom])
 
   return (
     <div
       style={{
         transform: `scale(${zoom})`,
         transformOrigin: 'top left',
-        // zoom: isVisible ? 1 : zoom, // commented out, unsure if you want this?
       }}
     >
       {children}

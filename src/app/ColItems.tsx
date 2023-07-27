@@ -56,7 +56,7 @@ export default function ColItems({ cols, idx }: Props) {
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided) => (
                   <div
-                    className={clsx('w-[15rem] shadow-md')}
+                    className={clsx('w-[15rem] shadow-md ')}
                     ref={provided.innerRef}
                     style={{
                       ...provided.draggableProps.style,

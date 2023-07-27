@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { useAtom } from 'jotai'
 import { MdMoreVert } from 'react-icons/md'
 
@@ -23,17 +23,23 @@ export default function ItemCard({ item, isBeingDragged }: Props) {
   const { mutate: addItem } = useAddItemMutation()
   const { showSettings } = useItemSelection()
   const isHeader = item.row === 0
+
+  // NOTE: if the ItemCard is being dragged, its parent is NOT
+  // ZoomableContainer, so we have to manually apply zoom by scaling its
+  // elements.
+  const scalingFactor = useMemo(
+    () => (isBeingDragged ? zoom : 1),
+    [isBeingDragged, zoom],
+  )
+
   return (
     <div
-      className={clsx('p-2 flex flex-col relative text-center ')}
+      className="p-2 flex flex-col relative text-center "
       style={{
         boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
         backgroundColor: item.color,
-        // NOTE: if the ItemCard is being dragged, its parent is NOT
-        // ZoomableContainer, which means we have to manually apply zoom by
-        // scaling its width and height.
-        width: `${16 * (isBeingDragged ? zoom : 1)}rem`,
-        height: `${(isHeader ? 5 : 10) * (isBeingDragged ? zoom : 1)}rem`,
+        width: `${scalingFactor * 16}rem`,
+        height: `${scalingFactor * (isHeader ? 5 : 10)}rem`,
       }}
     >
       <div
@@ -43,7 +49,7 @@ export default function ItemCard({ item, isBeingDragged }: Props) {
           'whitespace-pre-line break-words items-center justify-center ',
         )}
         style={{
-          transform: `scale(${isBeingDragged ? zoom : 1})`,
+          transform: `scale(${scalingFactor})`,
         }}
       >
         <p>{item.content}</p>

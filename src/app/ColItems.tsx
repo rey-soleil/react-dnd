@@ -1,10 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { Draggable, Droppable } from '@hello-pangea/dnd'
-import { useAtom } from 'jotai'
 
-import { zoomAtom } from '~/components/Zooming/zoomAtom'
 import clsx from '~/lib/clsx'
 import type { ItemType } from '~/lib/types'
 
@@ -16,19 +13,6 @@ type Props = { cols: ItemType[]; idx: number }
 export default function ColItems({ cols, idx }: Props) {
   const col = cols[idx]
   const { data: items = [] } = useItemsQuery(col.column)
-  const [zoom, setZoom] = useAtom(zoomAtom)
-  const [mousePos, setMousePos] = useState<{ x: number; y: number }>()
-
-  // NOTE: find a better way to do this that doesn't eat up CPU
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      setMousePos({ x: event.clientX, y: event.clientY })
-    }
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-    }
-  }, [])
 
   return (
     <div className=" w-[16rem] min-h-full relative">
@@ -45,19 +29,11 @@ export default function ColItems({ cols, idx }: Props) {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
-            // NOTE: setting transform scale makes the card the proper size.
-            // NOTE: setting left and top to mousePos makes the card follow the mouse.
-            // PROBLEM: the card is now impossible to drop :(
-            style={{
-              ...provided.draggableProps.style,
-              transform: `scale(${zoom})`,
-              left: mousePos!.x,
-              top: mousePos!.y,
-            }}
           >
             <ItemCard
               key={items[rubric.source.index].id}
               item={items[rubric.source.index]}
+              isBeingDragged={true}
             />
           </div>
         )}

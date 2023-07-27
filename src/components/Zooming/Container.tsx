@@ -13,17 +13,21 @@ export default function ZoomableContainer({ children }: Props) {
 
   // `movement` stores the offset since you started pinching.
   // Eg. if you zoom to 5, stop, and start again, movement will reset to 1.
-  // We know that you've stopped pinching when `delta` is 0, so that's when
-  // we set mostRecentZoom. If you've reset the zoom, we set mostRecentZoom to 1.
   usePinch(
     (props) => {
       const movement = props.movement[0]
+
+      // Did the user just reset the zoom?
+      // If so, set mostRecentZoom to 1.
+      // If not, multiply the most recent zoom by the movement.
       if (zoom === 1) {
-        setZoom(movement)
         setMostRecentZoom(1)
+        setZoom(movement)
       } else {
         setZoom(mostRecentZoom * movement)
       }
+
+      // User has stopped pinching, so set most recent zoom.
       if (props.delta[0] === 0) {
         setMostRecentZoom(mostRecentZoom * movement)
       }

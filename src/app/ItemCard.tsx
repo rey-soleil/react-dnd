@@ -29,8 +29,9 @@ export default function ItemCard({ item, isBeingDragged }: Props) {
       style={{
         boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
         backgroundColor: item.color,
-        // NOTE: if the ItemCard is being dragged, its parent is NOT ZoomableContainer,
-        // which means we have to manually apply zoom by scaling its width and height.
+        // NOTE: if the ItemCard is being dragged, its parent is NOT
+        // ZoomableContainer, which means we have to manually apply zoom by
+        // scaling its width and height.
         width: `${16 * (isBeingDragged ? zoom : 1)}rem`,
         height: `${(isHeader ? 5 : 10) * (isBeingDragged ? zoom : 1)}rem`,
       }}

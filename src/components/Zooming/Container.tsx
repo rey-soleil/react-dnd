@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { usePinch } from '@use-gesture/react'
 import { useAtom } from 'jotai'
 
@@ -9,13 +9,24 @@ type Props = {
 }
 export default function ZoomableContainer({ children }: Props) {
   const [zoom, setZoom] = useAtom(zoomAtom)
+  const [mostRecentZoom, setMostRecentZoom] = useState(1)
+
+  // `movement` stores the offset since you started pinching.
+  // Eg. if you zoom to 5, stop, and start again, movement will reset to 1.
+  // We know that you've stopped pinching when `delta` is 0, so that's when
+  // we set mostRecentZoom. If you've reset the zoom, we set mostRecentZoom to 1.
   usePinch(
-    // `difference` stores the delta between the previous and current offset.
-    // Setting the zoom using `difference` rather than `offset` means that when
-    // the user clicks ResetZoom, offset will be out of sync with zoom but
-    // difference will still be correct.
-    ({ delta: [difference] }) => {
-      setZoom((zoom) => zoom + difference)
+    (props) => {
+      const movement = props.movement[0]
+      if (zoom === 1) {
+        setZoom(movement)
+        setMostRecentZoom(1)
+      } else {
+        setZoom(mostRecentZoom * movement)
+      }
+      if (props.delta[0] === 0) {
+        setMostRecentZoom(mostRecentZoom * movement)
+      }
     },
     {
       target: typeof document !== 'undefined' ? document : undefined,

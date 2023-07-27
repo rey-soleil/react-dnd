@@ -21,7 +21,6 @@ export default function BoardPage() {
 
   return (
     <div ref={boardRef} className="flex-1 overflow-scroll board">
-      {/* NOTE: swapping order of DragDropContext and ZoomableContainer doesn't fix anything */}
       <ZoomableContainer>
         <div className="flex space-x-2 p-2">
           <DragDropContext onDragEnd={(r) => onDragEnd(r)}>

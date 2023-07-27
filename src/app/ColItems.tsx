@@ -23,7 +23,12 @@ export default function ColItems({ cols, idx }: Props) {
       <Droppable
         droppableId={col.column + ''}
         key={col.column}
-        // NOTE: using renderClone renders a copy of the ItemCard directly under the cursor.
+        // NOTE: if you have a transform: * on one of the parents of a
+        // <Draggable /> then the positioning logic will be incorrect while
+        // dragging. (See
+        // https://github.com/hello-pangea/dnd/blob/main/docs/guides/reparenting.md)
+        // Using renderClone, we render a correctly-positioned clone of the
+        // ItemCard while dragging.
         renderClone={(provided, snapshot, rubric) => (
           <div
             {...provided.draggableProps}
@@ -51,7 +56,6 @@ export default function ColItems({ cols, idx }: Props) {
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided) => (
                   <div
-                    // NOTE: setting transform none just makes the card impossible to drag
                     className={clsx('w-[15rem] shadow-md')}
                     ref={provided.innerRef}
                     style={{

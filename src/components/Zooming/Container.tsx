@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react'
-import { usePinch } from '@use-gesture/react'
+import { useGesture } from '@use-gesture/react'
 import { useAtom } from 'jotai'
 
 import { zoomAtom } from './zoomAtom'
@@ -13,9 +13,16 @@ export default function ZoomableContainer({ children }: Props) {
 
   // `movement` stores the offset since you started pinching.
   // Eg. if you zoom to 5, stop, and start again, movement will reset to 1.
-  usePinch(
-    ({ offset: [d] }) => {
-      setZoom(d)
+  useGesture(
+    {
+      onPinch: ({ offset: [d] }) => {
+        console.log('pinching')
+        setZoom(d)
+      },
+      onDrag: () => console.log('dragging'),
+      onMove: () => console.log('moving'),
+      onWheel: () => console.log('wheeling'),
+      onScroll: () => console.log('scrolling'),
     },
     {
       target: typeof document !== 'undefined' ? document : undefined,

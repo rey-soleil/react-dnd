@@ -61,12 +61,14 @@ export default function ItemCard({ item, isBeingDragged }: Props) {
           <Icons.Add className="text-xl" />
         </button>
       )}
-      <button
-        className="btn btn-xs btn-circle btn-ghost absolute top-1 right-1"
-        onClick={() => showSettings(item)}
-      >
-        <MdMoreVert className="text-xl" />
-      </button>
+      {!isBeingDragged && (
+        <button
+          className="btn btn-xs btn-circle btn-ghost absolute top-1 right-1"
+          onClick={() => showSettings(item)}
+        >
+          <MdMoreVert className="text-xl" />
+        </button>
+      )}
     </div>
   )
 }

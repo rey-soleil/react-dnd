@@ -20,7 +20,24 @@ export default function ColItems({ cols, idx }: Props) {
         <ItemCard item={cols[idx]} />
       </div>
 
-      <Droppable droppableId={col.column + ''} key={col.column}>
+      <Droppable
+        droppableId={col.column + ''}
+        key={col.column}
+        // NOTE: using renderClone renders a copy of the ItemCard directly under the cursor.
+        // Problem: the ItemCard is its original size, so it needs to be scaled down.
+        renderClone={(provided, snapshot, rubric) => (
+          <div
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+          >
+            <ItemCard
+              key={items[rubric.source.index].id}
+              item={items[rubric.source.index]}
+            />
+          </div>
+        )}
+      >
         {(provided, snap) => (
           <div
             {...provided.droppableProps}
@@ -35,13 +52,13 @@ export default function ColItems({ cols, idx }: Props) {
                 {(provided) => (
                   <div
                     // NOTE: setting transform none just makes the card impossible to drag
-                    className={clsx('w-[15rem] shadow-md !transform-none')}
+                    className={clsx('w-[15rem] shadow-md')}
                     ref={provided.innerRef}
-                    style={{
-                      // ...provided.draggableProps.style,
-
-                      transform: 'none !important',
-                    }}
+                    style={
+                      {
+                        // ...provided.draggableProps.style,
+                      }
+                    }
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                   >

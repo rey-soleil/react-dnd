@@ -41,6 +41,9 @@ export default function ItemCard({ item, isBeingDragged }: Props) {
           'item-card flex-1 flex cursor-move overflow-y-auto',
           'whitespace-pre-line break-words items-center justify-center ',
         )}
+        style={{
+          transform: `scale(${isBeingDragged ? zoom : 1})`,
+        }}
       >
         <p>{item.content}</p>
       </div>

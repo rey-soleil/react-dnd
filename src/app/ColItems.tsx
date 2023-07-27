@@ -34,10 +34,13 @@ export default function ColItems({ cols, idx }: Props) {
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided) => (
                   <div
-                    className={clsx('w-[15rem] shadow-md ')}
+                    // NOTE: setting transform none just makes the card impossible to drag
+                    className={clsx('w-[15rem] shadow-md !transform-none')}
                     ref={provided.innerRef}
                     style={{
-                      ...provided.draggableProps.style,
+                      // ...provided.draggableProps.style,
+
+                      transform: 'none !important',
                     }}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}

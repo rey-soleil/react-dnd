@@ -16,11 +16,33 @@ export default function ColItems({ cols, idx }: Props) {
 
   return (
     <div className=" w-[16rem] min-h-full relative">
-      <div className="z-20 sticky top-1">
+      <div className="z-20 sticky top-1 top-sticky">
         <ItemCard item={cols[idx]} />
       </div>
 
-      <Droppable droppableId={col.column + ''} key={col.column}>
+      <Droppable
+        droppableId={col.column + ''}
+        key={col.column}
+        // NOTE: if you have a transform: * on one of the parents of a
+        // <Draggable /> then the positioning logic will be incorrect while
+        // dragging. (See
+        // https://github.com/hello-pangea/dnd/blob/main/docs/guides/reparenting.md)
+        // Using renderClone, we render a correctly-positioned clone of the
+        // ItemCard while dragging.
+        renderClone={(provided, snapshot, rubric) => (
+          <div
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+          >
+            <ItemCard
+              key={items[rubric.source.index].id}
+              item={items[rubric.source.index]}
+              isBeingDragged={true}
+            />
+          </div>
+        )}
+      >
         {(provided, snap) => (
           <div
             {...provided.droppableProps}

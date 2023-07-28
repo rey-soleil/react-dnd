@@ -11,11 +11,32 @@ export default function ZoomableContainer({ children }: Props) {
   const [zoom, setZoom] = useAtom(zoomAtom)
   const [mostRecentZoom, setMostRecentZoom] = useState(1)
 
+  function clipZoom(zoom: number) {
+    if (zoom < 0.2) return 0.2
+    if (zoom > 5) return 5
+    return zoom
+  }
+
   // `movement` stores the offset since you started pinching.
   // Eg. if you zoom to 5, stop, and start again, movement will reset to 1.
   usePinch(
     (props) => {
-      setZoom(Math.max(0.2, props.offset[0]))
+      const movement = props.movement[0]
+
+      // Did the user just reset the zoom?
+      // If so, set mostRecentZoom to 1.
+      // If not, multiply the most recent zoom by the movement.
+      if (zoom === 1) {
+        setMostRecentZoom(1)
+        setZoom(clipZoom(movement))
+      } else {
+        setZoom(clipZoom(mostRecentZoom * movement))
+      }
+
+      // User has stopped pinching, so set most recent zoom.
+      if (props.delta[0] === 0) {
+        setMostRecentZoom(clipZoom(mostRecentZoom * movement))
+      }
     },
     {
       target: typeof document !== 'undefined' ? document : undefined,

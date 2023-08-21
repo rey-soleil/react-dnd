@@ -3,7 +3,7 @@ const themes = require('daisyui/src/theming/themes')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{html,js,jsx,ts,tsx,astro,vue,svelte}'],
+  content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
   darkMode: ['class', '[data-theme="light"]'],
   theme: {
     extend: {
@@ -12,7 +12,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require('daisyui'), require('tailwindcss-animate')],
+  plugins: [require('daisyui')],
   daisyui: {
     themes: [
       {

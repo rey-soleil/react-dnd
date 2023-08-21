@@ -1,3 +1,5 @@
+'use client'
+
 import { ReactNode, useEffect, useState } from 'react'
 import { usePinch } from '@use-gesture/react'
 import { useAtom } from 'jotai'
@@ -33,18 +35,18 @@ export default function ZoomableContainer({ children }: Props) {
       }
     },
     {
-      target: typeof document !== 'undefined' ? document : undefined, // to solve hydration mismatch
-      pointer: { touch: true }, // use touch event
+      target: typeof document !== 'undefined' ? document : undefined,
+      pointer: { touch: true },
       pinchOnWheel: true,
       eventOptions: {
-        passive: false, // prevent default behavior when pinching
+        passive: false,
       },
     },
   )
 
   useEffect(() => {
     const handler = (e: Event) => e.preventDefault()
-    document.addEventListener('gesturestart', handler) // to make sure zooming gesture doesn't interfere with Safari accessibility zoom
+    document.addEventListener('gesturestart', handler)
     document.addEventListener('gesturechange', handler)
     document.addEventListener('gestureend', handler)
 

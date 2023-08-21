@@ -6,27 +6,22 @@ import { MdMoreVert } from 'react-icons/md'
 
 import { zoomAtom } from '~/components/Zooming/zoomAtom'
 import clsx from '~/lib/clsx'
-import { Icons } from '~/lib/icons'
-import type { ItemType } from '~/lib/types'
+import type { CardType } from '~/lib/types'
 
-import { useAddItemMutation } from './hooks/useAddItem'
-import { useItemSelection } from './hooks/useItemSelect'
+import useToggleSettings from '../SettingsDialog/useToggleSettings'
+import AddCardBtn from './AddCard/AddCardBtn'
 
 type Props = {
-  item: ItemType
+  item: CardType
   isBeingDragged?: boolean
 }
 
-export default function ItemCard({ item, isBeingDragged }: Props) {
+export default function CardItem({ item, isBeingDragged }: Props) {
   const [zoom, setZoom] = useAtom(zoomAtom)
   const divRef = useRef<HTMLDivElement>(null)
-  const { mutate: addItem } = useAddItemMutation()
-  const { showSettings } = useItemSelection()
+  const { toggleSettings } = useToggleSettings()
   const isHeader = item.row === 0
 
-  // NOTE: if the ItemCard is being dragged, its parent is NOT
-  // ZoomableContainer, so we have to manually apply zoom by scaling its
-  // elements.
   const scalingFactor = useMemo(
     () => (isBeingDragged ? zoom : 1),
     [isBeingDragged, zoom],
@@ -54,24 +49,11 @@ export default function ItemCard({ item, isBeingDragged }: Props) {
       >
         <p>{item.content}</p>
       </div>
-      {isHeader && (
-        <button
-          className="btn btn-xs btn-circle btn-ghost absolute bottom-1 right-1"
-          onClick={() =>
-            addItem({
-              type: 'items',
-              column: item.column,
-              content: `Item ${item.column} - ${item.row + 1}`,
-            })
-          }
-        >
-          <Icons.Add className="text-xl" />
-        </button>
-      )}
+      {isHeader && <AddCardBtn col={item.col} />}
       {!isBeingDragged && (
         <button
           className="btn btn-xs btn-circle btn-ghost absolute top-1 right-1"
-          onClick={() => showSettings(item)}
+          onClick={() => toggleSettings(item)}
         >
           <MdMoreVert className="text-xl" />
         </button>

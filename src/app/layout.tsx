@@ -7,8 +7,6 @@ import clsx from '~/lib/clsx'
 
 import '~/lib/global.css'
 
-export const runtime = 'edge'
-
 const font = Inter({
   subsets: ['latin'],
   style: ['normal'],

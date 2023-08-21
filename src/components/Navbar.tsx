@@ -1,5 +1,7 @@
 'use client'
 
+import { MdSettings } from 'react-icons/md'
+
 import AppLogo from '~/components/AppLogo'
 
 import { ResetZoomBtn } from './Zooming/ResetZoom'

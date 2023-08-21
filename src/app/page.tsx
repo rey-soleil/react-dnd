@@ -1,41 +1,22 @@
-'use client'
-
-import { useRef } from 'react'
-import { DragDropContext } from '@hello-pangea/dnd'
-import { MdAdd } from 'react-icons/md'
-
 import ZoomableContainer from '~/components/Zooming/Container'
-import clsx from '~/lib/clsx'
 
-import ColItems from './ColItems'
-import { useAddItemMutation } from './hooks/useAddItem'
-import { useDragItemMutation } from './hooks/useDragItem'
-import { useItemsQuery } from './hooks/useItemsQuery'
-import SettingsDialog from './settings/SettingsDialog'
+import AddColFloatingBtn from './Columns/AddColumn/AddColFloatingBtn'
+import JotaiProvider from './JotaiProvider'
+import KanbanBoard from './Kanban'
+import { fetchCards } from './services/fetchCards'
+import SettingsDialog from './SettingsDialog'
 
-export default function BoardPage() {
-  const { mutate: onDragEnd } = useDragItemMutation()
-  const { mutate: addColumn } = useAddItemMutation()
-  const { data: cols = [] } = useItemsQuery(-1)
-
+export default async function BoardPage() {
+  const cards = await fetchCards()
   return (
-    <div className="flex-1 overflow-scroll board">
-      <ZoomableContainer>
-        <div className="flex space-x-2 p-2">
-          <DragDropContext onDragEnd={(r) => onDragEnd(r)}>
-            {cols.map((col, i) => (
-              <ColItems cols={cols} idx={i} key={col.id} />
-            ))}
-          </DragDropContext>
-        </div>
-      </ZoomableContainer>
-      <button
-        className={clsx('btn btn-lg btn-circle fixed bottom-2 right-2')}
-        onClick={() => addColumn({ type: 'cols', column: cols.length, row: 0 })}
-      >
-        <MdAdd size={50} />
-      </button>
-      <SettingsDialog />
-    </div>
+    <JotaiProvider initCards={cards}>
+      <div className="flex-1 overflow-scroll board">
+        <ZoomableContainer>
+          <KanbanBoard />
+        </ZoomableContainer>
+        <AddColFloatingBtn />
+        <SettingsDialog />
+      </div>
+    </JotaiProvider>
   )
 }

@@ -7,7 +7,7 @@ import { zoomAtom } from './zoomAtom'
 
 export function ResetZoomBtn() {
   const [zoom, setZoom] = useAtom(zoomAtom)
-  // if (zoom === 1) return null
+  if (zoom === 1) return null
   return (
     <button
       title="Reset Zoom"
@@ -15,7 +15,6 @@ export function ResetZoomBtn() {
       onClick={() => setZoom(1)}
     >
       <MdSearchOff />
-      {zoom.toFixed(2)}
     </button>
   )
 }

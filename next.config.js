@@ -11,7 +11,8 @@ const withPWA = require('next-pwa')({
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['mukunnuuulanqrbqqqgq.supabase.co'],
+    domains: [''],
   },
+  transpilePackages: ['jotai-devtools'],
 }
 module.exports = withPWA(nextConfig)
